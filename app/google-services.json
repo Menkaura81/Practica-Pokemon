@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "265121619577",
+    "project_id": "practica-pokemon",
+    "storage_bucket": "practica-pokemon.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265121619577:android:80c1f85c5acbcee035bea8",
+        "android_client_info": {
+          "package_name": "dam.aguadulce.aal.practicapokemon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO1Oh2ostaSAFBoKoYFdHmGQI8PRlnuso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
