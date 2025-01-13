@@ -23,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // ViewBinding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
+        // Navegacion
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             navController = NavHostFragment.findNavController(navHostFragment);
@@ -32,13 +34,18 @@ public class MainActivity extends AppCompatActivity {
             //NavigationUI.setupActionBarWithNavController(this, navController);
         }
 
+        // Listener para los clicks en el menu inferior
         binding.bottomNavigation.setOnItemSelectedListener(this::onMenuSelected);
 
         setContentView(binding.getRoot());
-
     }
 
 
+    /**
+     * Método que implementa la logica de navegación entre las pestañas del menu inferior
+     * @param menuItem Item del menú que se ha pulsado
+     * @return
+     */
     private boolean onMenuSelected(MenuItem menuItem){
         if (menuItem.getItemId() == R.id.mis_pokemons_menu){
             navController.navigate(R.id.misPokemonsFragment);
