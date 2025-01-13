@@ -1,6 +1,7 @@
 package dam.aguadulce.aal.practicapokemon;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -14,17 +15,47 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import dam.aguadulce.aal.practicapokemon.databinding.ActivityMainBinding;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
+    private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // ViewBinding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        // Peticion a la API de Pokemon
+        PokemonApiService apiService = RetrofitClient.getClient().create(PokemonApiService.class);
+        Call<PokemonResponse> call = apiService.getPokemons(0, 150);
+
+        call.enqueue(new Callback<PokemonResponse>() {
+            @Override
+            public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Pokemon> pokemons = response.body().getResults();
+                    for (Pokemon pokemon : pokemons) {
+                        Log.d(TAG, "Pokemon: " + pokemon.getName());
+                    }
+                } else {
+                    Log.e(TAG, "Respuesta fallida: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PokemonResponse> call, Throwable t) {
+                Log.e(TAG, "Error en la petición: " + t.getMessage());
+            }
+        });
+
+
 
         // Navegacion
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -56,4 +87,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
+
 }
