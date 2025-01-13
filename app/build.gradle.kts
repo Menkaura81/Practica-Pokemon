@@ -42,6 +42,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.firebaseui:firebase-ui-auth:7.2.0")
 
+    implementation(libs.navigation.ui)
+    implementation(libs.navigation.fragment)
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

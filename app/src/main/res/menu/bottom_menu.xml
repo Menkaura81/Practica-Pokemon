@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mis_pokemons_menu"
+        android:icon="@drawable/pokeball_icon"
+        android:title="Mis Pokemons" />
+    <item
+        android:id="@+id/pokedex_menu"
+        android:icon="@drawable/pokedex_icon"
+        android:title="Pokedex" />
+    <item
+        android:id="@+id/ajustes_menu"
+        android:icon="@drawable/settings_icon"
+        android:title="Ajustes" />
+</menu>

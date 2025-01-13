@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/misPokemonsFragment">
+
+    <fragment
+        android:id="@+id/pokedexFragment"
+        android:name="dam.aguadulce.aal.practicapokemon.PokedexFragment"
+        android:label="fragment_pokedex"
+        tools:layout="@layout/fragment_pokedex" />
+    <fragment
+        android:id="@+id/misPokemonsFragment"
+        android:name="dam.aguadulce.aal.practicapokemon.MisPokemonsFragment"
+        android:label="fragment_mis_pokemons"
+        tools:layout="@layout/fragment_mis_pokemons" />
+    <fragment
+        android:id="@+id/ajustesFragment"
+        android:name="dam.aguadulce.aal.practicapokemon.AjustesFragment"
+        android:label="fragment_ajustes"
+        tools:layout="@layout/fragment_ajustes" />
+</navigation>
