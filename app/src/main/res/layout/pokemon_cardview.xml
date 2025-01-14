@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="50dp"
+        android:layout_margin="10dp"
+        android:padding="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:background="@color/dark_yellow">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="50dp">
+                <ImageView
+                    android:id="@+id/imagen_pokemon"
+                    android:layout_width="96dp"
+                    android:layout_height="110dp"
+                    android:src="@drawable/pikachu"
+                    android:layout_margin="10dp"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/nombre_pokemon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nombre_pokemon_placeholder"
+                android:textSize="40sp"
+                android:color="@color/dark_blue"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
+

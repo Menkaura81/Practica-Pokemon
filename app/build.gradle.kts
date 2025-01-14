@@ -33,17 +33,26 @@ android {
 
     buildFeatures{
         viewBinding = true
+        dataBinding = true
     }
 }
 
 dependencies {
+    // RecyclerView y Cardview
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.cardview:cardview:1.0.0")
 
+    // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.firebaseui:firebase-ui-auth:7.2.0")
 
+    // Retrofit para la APO
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Picasso para las imagenes desde URL
+    implementation("com.squareup.picasso:picasso:2.8")
 
     implementation(libs.navigation.ui)
     implementation(libs.navigation.fragment)
