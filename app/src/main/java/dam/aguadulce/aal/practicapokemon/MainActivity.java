@@ -15,6 +15,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import dam.aguadulce.aal.practicapokemon.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavController navController;
     private static final String TAG = "MainActivity";
+    public List<PokemonDetalles> pokemonDetallesLista = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Pokemon> pokemons = response.body().getResults();
-                    for (Pokemon pokemon : pokemons) {
-                        Log.d(TAG, "Pokemon: " + pokemon.getName());
-                    }
+                    fetchPokemonDetails(apiService, pokemons);
                 } else {
                     Log.e(TAG, "Respuesta fallida: " + response.code());
                 }
@@ -54,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "Error en la petición: " + t.getMessage());
             }
         });
-
-
 
         // Navegacion
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -72,6 +73,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Función para realizar consultas individuales por cada Pokémon usando su URL
+    private void fetchPokemonDetails(PokemonApiService apiService, List<Pokemon> pokemons) {
+        for (Pokemon pokemon : pokemons) {
+            Call<PokemonDetalles> detailsCall = apiService.getPokemonDetails(pokemon.getUrl());
+            detailsCall.enqueue(new Callback<PokemonDetalles>() {
+                @Override
+                public void onResponse(Call<PokemonDetalles> call, Response<PokemonDetalles> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        pokemonDetallesLista.add(response.body());
+                        Log.d(TAG, "Detalles del Pokémon añadidos: " + response.body().getName());
+                    } else {
+                        Log.e(TAG, "Fallo al obtener detalles: " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<PokemonDetalles> call, Throwable t) {
+                    Log.e(TAG, "Error al obtener detalles: " + t.getMessage());
+                }
+            });
+        }
+    }
+
+
     /**
      * Método que implementa la logica de navegación entre las pestañas del menu inferior
      * @param menuItem Item del menú que se ha pulsado
@@ -81,7 +106,9 @@ public class MainActivity extends AppCompatActivity {
         if (menuItem.getItemId() == R.id.mis_pokemons_menu){
             navController.navigate(R.id.misPokemonsFragment);
         } else if (menuItem.getItemId() == R.id.pokedex_menu){
-            navController.navigate(R.id.pokedexFragment);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(pokemonDetallesLista));
+            navController.navigate(R.id.pokedexFragment, bundle);
         } else if (menuItem.getItemId() == R.id.ajustes_menu){
             navController.navigate(R.id.ajustesFragment);
         }

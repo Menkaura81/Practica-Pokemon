@@ -13,5 +13,5 @@ public interface PokemonApiService {
     );
 
     @GET
-    Call<PokemonDetails> getPokemonDetails(@Url String url);
+    Call<PokemonDetalles> getPokemonDetails(@Url String url);
 }

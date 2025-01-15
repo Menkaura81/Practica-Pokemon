@@ -3,10 +3,15 @@ package dam.aguadulce.aal.practicapokemon;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+
+import dam.aguadulce.aal.practicapokemon.databinding.FragmentPokedexBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,22 +20,30 @@ import android.view.ViewGroup;
  */
 public class PokedexFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FragmentPokedexBinding binding;
+    private PokemonRecyclerViewAdapter adapter;
+    private ArrayList<PokemonDetalles> pokemonDetallesLista;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public PokedexFragment() {
+        // Constructor vacío requerido
+    }
 
+    // Método estático para crear una instancia del fragmento con argumentos
+    public static PokedexFragment newInstance(ArrayList<PokemonDetalles> listaPokemon) {
+        PokedexFragment fragment = new PokedexFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("pokemonDetallesLista", listaPokemon); // Pasar la lista como argumento serializable
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Recuperar la lista de Pokémon desde los argumentos
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            pokemonDetallesLista = (ArrayList<PokemonDetalles>) getArguments().getSerializable("pokemonDetallesLista");
         }
     }
 
@@ -38,11 +51,16 @@ public class PokedexFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        binding = FragmentPokedexBinding.inflate(inflater, container, false);
+
+        // Configurar el adaptador con el listener
+        adapter = new PokemonRecyclerViewAdapter(pokemonDetallesLista, this);
+        binding.pokedexRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.pokedexRecyclerView.setAdapter(adapter);
 
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pokedex, container, false);
-
+        // Retornar la raíz del binding
+        return binding.getRoot();
 
     }
 }
