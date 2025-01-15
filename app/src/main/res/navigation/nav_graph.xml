@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_pokedex" />
     <fragment
         android:id="@+id/misPokemonsFragment"
-        android:name="dam.aguadulce.aal.practicapokemon.MisPokemonsFragment"
+        android:name="dam.aguadulce.aal.practicapokemon.MyPokemonsFragment"
         android:label="fragment_mis_pokemons"
         tools:layout="@layout/fragment_mis_pokemons" />
     <fragment

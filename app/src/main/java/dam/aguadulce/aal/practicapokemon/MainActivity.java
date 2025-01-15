@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavController navController;
     private List<PokemonDetails> pokemonDetailsList = new ArrayList<>();
+    boolean isDataLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +101,11 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<PokemonDetails> call, Response<PokemonDetails> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         pokemonDetailsList.add(response.body());
-
-                    } else {
-                        Toast.makeText(MainActivity.this, "Fallo al obtener detalles: ", Toast.LENGTH_SHORT).show();
+                    }
+                    // Si ya se cargaron todos los detalles, actualizamos la variable isDataLoaded
+                    if (pokemonDetailsList.size() == pokemons.size()) {
+                        isDataLoaded = true;
+                        navigateToInitialFragment();
                     }
                 }
 
@@ -116,13 +119,27 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
+     * Método que solo carga el fragmento inicial si se ha cargado la lista de pokemons, para evitar cuelgues
+     */
+    private void navigateToInitialFragment() {
+        if (isDataLoaded) {
+            // Aquí puedes navegar a tu fragmento inicial
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(pokemonDetailsList));
+            navController.navigate(R.id.misPokemonsFragment, bundle);  // O cualquier fragmento inicial
+        }
+    }
+
+    /**
      * Método que implementa la logica de navegación entre las pestañas del menu inferior
      * @param menuItem Item del menú que se ha pulsado
      * @return true
      */
     private boolean onMenuSelected(MenuItem menuItem){
         if (menuItem.getItemId() == R.id.mis_pokemons_menu){
-            navController.navigate(R.id.misPokemonsFragment);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(pokemonDetailsList));
+            navController.navigate(R.id.misPokemonsFragment, bundle);
         } else if (menuItem.getItemId() == R.id.pokedex_menu){
             Bundle bundle = new Bundle();
             bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(pokemonDetailsList));
