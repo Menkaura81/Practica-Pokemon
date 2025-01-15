@@ -10,5 +10,5 @@
     <string name="my_pokemons_menu">Mis Pokemons</string>
     <string name="pokedex_menu">Pokedex</string>
     <string name="settings_menu">Ajustes</string>
-
+    <string name="settings_title">AJUSTES</string>
 </resources>
