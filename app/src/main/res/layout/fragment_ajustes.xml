@@ -15,7 +15,7 @@
         android:textSize="30dp"/>
 
     <LinearLayout
-        android:id="@+id/change_languaje"
+        android:id="@+id/change_language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

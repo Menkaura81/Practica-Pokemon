@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">Practica Pokemon</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nombre_pokemon_placeholder">Pikachu</string>
-    <string name="translate">Idioma</string>
-    <string name="delete_pokemons">Eliminar mis pokemons</string>
-    <string name="about">Acerca de…</string>
-    <string name="close_session">Cerrar sesión</string>
+    <string name="translate">Language</string>
+    <string name="delete_pokemons">Delete my Pokemons</string>
+    <string name="about">About…</string>
+    <string name="close_session">Close session</string>
     <string name="about_msg">\nAlberto Alarcón López\nVersión 1.0.0</string>
-    <string name="close_dialog">Cerrar</string>
+    <string name="close_dialog">Close</string>
+    <string name="my_pokemons_menu">My Pokemons</string>
+    <string name="pokedex_menu">Pokedex</string>
+    <string name="settings_menu">Settings</string>
 
 </resources>

@@ -1,5 +1,10 @@
 package dam.aguadulce.aal.practicapokemon;
 
+import static dam.aguadulce.aal.practicapokemon.PreferencesHelper.KEY_LANGUAGE;
+import static dam.aguadulce.aal.practicapokemon.PreferencesHelper.PREFS_NAME;
+
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -11,6 +16,8 @@ import androidx.navigation.ui.NavigationUI;
 import dam.aguadulce.aal.practicapokemon.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
-    public List<PokemonDetails> pokemonDetailsList = new ArrayList<>();
-
+    private List<PokemonDetails> pokemonDetailsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
         // ViewBinding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        // SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String languageCode = sharedPreferences.getString(KEY_LANGUAGE, "es");  // Idioma por defecto
+        // Cambiar el idioma si es necesario
+        changeLanguage(languageCode);
 
         // Petición a la API de Pokemon
         PokemonApiService apiService = RetrofitClient.getClient().create(PokemonApiService.class);
@@ -65,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void changeLanguage(String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+
     /**
      * Método que implementa la segunda consulta a la API en la que se obtienen los detalles de cada pokemon. Esta en una función
      * separada porque Retrofit es asíncrono
@@ -79,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<PokemonDetails> call, Response<PokemonDetails> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         pokemonDetailsList.add(response.body());
+
                     } else {
                         Toast.makeText(MainActivity.this, "Fallo al obtener detalles: ", Toast.LENGTH_SHORT).show();
                     }

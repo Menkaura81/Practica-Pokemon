@@ -5,13 +5,13 @@
     <item
         android:id="@+id/mis_pokemons_menu"
         android:icon="@drawable/pokeball_icon"
-        android:title="Mis Pokemons" />
+        android:title="@string/my_pokemons_menu" />
     <item
         android:id="@+id/pokedex_menu"
         android:icon="@drawable/pokedex_icon"
-        android:title="Pokedex" />
+        android:title="@string/pokedex_menu" />
     <item
         android:id="@+id/ajustes_menu"
         android:icon="@drawable/settings_icon"
-        android:title="Ajustes" />
+        android:title="@string/settings_menu" />
 </menu>
