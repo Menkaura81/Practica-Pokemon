@@ -9,7 +9,7 @@ import java.util.List;
  * Clase que implementa el objeto Pokemon con los detalles necesarios para el recyclerview. También se usa para interacturar
  * con retrofit
  */
-public class PokemonDetalles {
+public class PokemonDetails {
 
     private String name;
     private int id;
@@ -24,7 +24,7 @@ public class PokemonDetalles {
     private int height;
 
     // Constructor personalizado para simplificar
-    public PokemonDetalles(String name, int id, String sprite, String type, int weight, int height) {
+    public PokemonDetails(String name, int id, String sprite, String type, int weight, int height) {
         this.name = name;
         this.id = id;
         this.sprites = new Sprites(sprite);

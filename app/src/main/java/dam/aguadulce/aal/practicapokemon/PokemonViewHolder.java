@@ -1,17 +1,10 @@
 package dam.aguadulce.aal.practicapokemon;
 
-import android.util.Log;
-import android.view.View;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import dam.aguadulce.aal.practicapokemon.databinding.PokemonCardviewBinding;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PokemonViewHolder extends RecyclerView.ViewHolder {
 
@@ -23,7 +16,7 @@ public class PokemonViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public void bind (PokemonDetalles pokemon) {
+    public void bind (PokemonDetails pokemon) {
         binding.nombrePokemon.setText(pokemon.getName());
         // Usamos Picasso para descargar la imagen y bindearla al cardview
         Picasso.get()

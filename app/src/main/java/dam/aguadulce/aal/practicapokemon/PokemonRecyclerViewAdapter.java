@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 public class PokemonRecyclerViewAdapter extends Adapter<PokemonViewHolder> {
 
-    private final ArrayList<PokemonDetalles> pokemons;
+    private final ArrayList<PokemonDetails> pokemons;
     private final Fragment fragment;
 
-    public PokemonRecyclerViewAdapter (ArrayList<PokemonDetalles> pokemons, Fragment fragment){
+    public PokemonRecyclerViewAdapter (ArrayList<PokemonDetails> pokemons, Fragment fragment){
         this.pokemons = pokemons;
         this.fragment = fragment;
     }
@@ -31,7 +31,7 @@ public class PokemonRecyclerViewAdapter extends Adapter<PokemonViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position){
-        PokemonDetalles currentPokemon = this.pokemons.get(position);
+        PokemonDetails currentPokemon = this.pokemons.get(position);
         holder.bind(currentPokemon);
 
         holder.itemView.setOnClickListener(view -> {

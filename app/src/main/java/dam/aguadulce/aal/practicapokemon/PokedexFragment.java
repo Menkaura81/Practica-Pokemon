@@ -22,14 +22,14 @@ public class PokedexFragment extends Fragment {
 
     private FragmentPokedexBinding binding;
     private PokemonRecyclerViewAdapter adapter;
-    private ArrayList<PokemonDetalles> pokemonDetallesLista;
+    private ArrayList<PokemonDetails> pokemonDetallesLista;
 
     public PokedexFragment() {
         // Constructor vacío requerido
     }
 
     // Método estático para crear una instancia del fragmento con argumentos
-    public static PokedexFragment newInstance(ArrayList<PokemonDetalles> listaPokemon) {
+    public static PokedexFragment newInstance(ArrayList<PokemonDetails> listaPokemon) {
         PokedexFragment fragment = new PokedexFragment();
         Bundle args = new Bundle();
         args.putSerializable("pokemonDetallesLista", listaPokemon); // Pasar la lista como argumento serializable
@@ -43,7 +43,7 @@ public class PokedexFragment extends Fragment {
 
         // Recuperar la lista de Pokémon desde los argumentos
         if (getArguments() != null) {
-            pokemonDetallesLista = (ArrayList<PokemonDetalles>) getArguments().getSerializable("pokemonDetallesLista");
+            pokemonDetallesLista = (ArrayList<PokemonDetails>) getArguments().getSerializable("pokemonDetallesLista");
         }
     }
 

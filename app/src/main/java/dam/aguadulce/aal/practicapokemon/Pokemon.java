@@ -1,7 +1,7 @@
 package dam.aguadulce.aal.practicapokemon;
 
 /**
- * Clase que implementa el concepto abstracto de un Pokemon con su nombre y la url de la que obtener su información
+ * Clase que implementa el objeto obtenido en la primera consulta, con el nombre y la url de consulta de cada pokemon
  */
 public class Pokemon {
     private String name;
@@ -15,15 +15,5 @@ public class Pokemon {
 
     public String getUrl() {
         return url;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

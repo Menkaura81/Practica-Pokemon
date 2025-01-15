@@ -1,33 +1,26 @@
 package dam.aguadulce.aal.practicapokemon;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-
 import dam.aguadulce.aal.practicapokemon.databinding.ActivityMainBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
-    private static final String TAG = "MainActivity";
-    public List<PokemonDetalles> pokemonDetallesLista = new ArrayList<>();
+    public List<PokemonDetails> pokemonDetailsList = new ArrayList<>();
 
 
     @Override
@@ -37,10 +30,9 @@ public class MainActivity extends AppCompatActivity {
         // ViewBinding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
-        // Peticion a la API de Pokemon
+        // Petición a la API de Pokemon
         PokemonApiService apiService = RetrofitClient.getClient().create(PokemonApiService.class);
         Call<PokemonResponse> call = apiService.getPokemons(0, 150);
-
         call.enqueue(new Callback<PokemonResponse>() {
             @Override
             public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
@@ -48,17 +40,17 @@ public class MainActivity extends AppCompatActivity {
                     List<Pokemon> pokemons = response.body().getResults();
                     fetchPokemonDetails(apiService, pokemons);
                 } else {
-                    Log.e(TAG, "Respuesta fallida: " + response.code());
+                    Toast.makeText(MainActivity.this, "Respuesta fallida", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<PokemonResponse> call, Throwable t) {
-                Log.e(TAG, "Error en la petición: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Error en la petición", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Navegacion
+        // Navegación
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             navController = NavHostFragment.findNavController(navHostFragment);
@@ -73,24 +65,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Función para realizar consultas individuales por cada Pokémon usando su URL
+    /**
+     * Método que implementa la segunda consulta a la API en la que se obtienen los detalles de cada pokemon. Esta en una función
+     * separada porque Retrofit es asíncrono
+     * @param apiService api de retrofit
+     * @param pokemons Lista de pokemons obtenida en la primera consulta
+     */
     private void fetchPokemonDetails(PokemonApiService apiService, List<Pokemon> pokemons) {
         for (Pokemon pokemon : pokemons) {
-            Call<PokemonDetalles> detailsCall = apiService.getPokemonDetails(pokemon.getUrl());
-            detailsCall.enqueue(new Callback<PokemonDetalles>() {
+            Call<PokemonDetails> detailsCall = apiService.getPokemonDetails(pokemon.getUrl());
+            detailsCall.enqueue(new Callback<PokemonDetails>() {
                 @Override
-                public void onResponse(Call<PokemonDetalles> call, Response<PokemonDetalles> response) {
+                public void onResponse(Call<PokemonDetails> call, Response<PokemonDetails> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        pokemonDetallesLista.add(response.body());
-                        Log.d(TAG, "Detalles del Pokémon añadidos: " + response.body().getName());
+                        pokemonDetailsList.add(response.body());
                     } else {
-                        Log.e(TAG, "Fallo al obtener detalles: " + response.code());
+                        Toast.makeText(MainActivity.this, "Fallo al obtener detalles: ", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<PokemonDetalles> call, Throwable t) {
-                    Log.e(TAG, "Error al obtener detalles: " + t.getMessage());
+                public void onFailure(Call<PokemonDetails> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "Fallo al obtener detalles: ", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -100,21 +96,18 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Método que implementa la logica de navegación entre las pestañas del menu inferior
      * @param menuItem Item del menú que se ha pulsado
-     * @return
+     * @return true
      */
     private boolean onMenuSelected(MenuItem menuItem){
         if (menuItem.getItemId() == R.id.mis_pokemons_menu){
             navController.navigate(R.id.misPokemonsFragment);
         } else if (menuItem.getItemId() == R.id.pokedex_menu){
             Bundle bundle = new Bundle();
-            bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(pokemonDetallesLista));
+            bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(pokemonDetailsList));
             navController.navigate(R.id.pokedexFragment, bundle);
         } else if (menuItem.getItemId() == R.id.ajustes_menu){
             navController.navigate(R.id.ajustesFragment);
         }
         return true;
     }
-
-
-
 }

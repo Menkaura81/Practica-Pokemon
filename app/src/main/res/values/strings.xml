@@ -3,4 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nombre_pokemon_placeholder">Pikachu</string>
+    <string name="translate">Idioma</string>
+    <string name="delete_pokemons">Eliminar mis pokemons</string>
+    <string name="about">Acerca de</string>
+    <string name="close_session">Cerrar sesión</string>
 </resources>

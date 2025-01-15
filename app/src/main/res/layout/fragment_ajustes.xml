@@ -1,16 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AjustesFragment">
+    android:orientation="vertical"
+    tools:context=".AjustesFragment"
+    android:padding="10dp">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ajustes"
-        android:layout_gravity="center"
+        android:text="AJUSTES"
+        android:textStyle="bold"
         android:textSize="30dp"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/change_languaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/language" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/translate"/>
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="20dp"
+            android:src="@drawable/flecha"
+            android:layout_marginStart="280dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icono_x"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_pokemons"
+            android:layout_marginStart="10dp"/>
+
+        <Switch
+            android:id="@+id/delete_pokemons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/informacion"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:layout_marginStart="10dp"/>
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="20dp"
+            android:src="@drawable/flecha"
+            android:layout_marginStart="259dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/close_session"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/cerrar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/close_session"
+            android:layout_marginStart="10dp"/>
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="20dp"
+            android:src="@drawable/flecha"
+            android:layout_marginStart="238dp"/>
+    </LinearLayout>
+
+</LinearLayout>
