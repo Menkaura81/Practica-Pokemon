@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavController navController;
     private List<PokemonDetails> pokemonDetailsList = new ArrayList<>();
+    private List<PokemonDetails> myPokemonList = new ArrayList<>();
     boolean isDataLoaded = false;
 
     @SuppressLint("NonConstantResourceId")
@@ -109,6 +110,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                     // Si ya se cargaron todos los detalles, actualizamos la variable isDataLoaded
                     if (pokemonDetailsList.size() == pokemons.size()) {
+
+
+
+                        // INVENTO, QUITAR CUANDO LA BASE DE DATOS ESTÉ IMPLEMENTADA
+
+                        // Verifica que haya suficientes Pokémon en pokemonDetailsList
+                        if (pokemonDetailsList.size() >= 3) {
+                            // Copiar los tres primeros Pokémon
+                            for (int i = 0; i < 3; i++) {
+                                myPokemonList.add(pokemonDetailsList.get(i));
+                            }
+                            Toast.makeText(MainActivity.this, "3 Pokémon añadidos a mi lista", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Si no hay suficientes Pokémon
+                            Toast.makeText(MainActivity.this, "No hay suficientes Pokémon para añadir", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+
+
                         isDataLoaded = true;
                         navigateToInitialFragment();
                     }
@@ -130,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         if (isDataLoaded) {
             // Aquí puedes navegar a tu fragmento inicial
             Bundle bundle = new Bundle();
-            bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(pokemonDetailsList));
+            bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(myPokemonList));
             navController.navigate(R.id.misPokemonsFragment, bundle);  // O cualquier fragmento inicial
         }
     }
@@ -143,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean onMenuSelected(MenuItem menuItem){
         if (menuItem.getItemId() == R.id.mis_pokemons_menu){
             Bundle bundle = new Bundle();
-            bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(pokemonDetailsList));
+            bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(myPokemonList));
             navController.navigate(R.id.misPokemonsFragment, bundle);
         } else if (menuItem.getItemId() == R.id.pokedex_menu){
             Bundle bundle = new Bundle();

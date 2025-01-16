@@ -35,8 +35,8 @@
         <ImageView
             android:layout_width="14dp"
             android:layout_height="20dp"
-            android:src="@drawable/flecha"
-            android:layout_marginStart="280dp"/>
+            android:layout_gravity="end"
+            android:src="@drawable/flecha" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,8 +59,7 @@
         <Switch
             android:id="@+id/delete_pokemons"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,8 +83,7 @@
         <ImageView
             android:layout_width="14dp"
             android:layout_height="20dp"
-            android:src="@drawable/flecha"
-            android:layout_marginStart="259dp"/>
+            android:src="@drawable/flecha"/>
     </LinearLayout>
 
     <LinearLayout
@@ -110,7 +108,7 @@
             android:layout_width="14dp"
             android:layout_height="20dp"
             android:src="@drawable/flecha"
-            android:layout_marginStart="238dp"/>
+            android:layout_gravity="end"/>
     </LinearLayout>
 
 </LinearLayout>
