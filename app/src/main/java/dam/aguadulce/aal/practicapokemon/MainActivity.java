@@ -14,6 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import dam.aguadulce.aal.practicapokemon.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +51,24 @@ public class MainActivity extends AppCompatActivity {
         changeLanguage(languageCode);
 
         Toast.makeText(MainActivity.this, "Cargando lista de Pokemons ", Toast.LENGTH_SHORT).show();
+
+        // Peticion a Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("user").get().addOnSuccessListener(
+                queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                            PokemonDetails pokemon = new PokemonDetails(document.getString("name"), document.getString("id"), document.getString("sprite"),
+                                    document.getString("type"), document.getString("weight"), document.getString("height"));
+                            myPokemonList.add(pokemon);
+                        }
+                    } else {
+                        System.out.println("No hay Pokémon en la base de datos.");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error al obtener Pokémon: " + e.getMessage());
+                });
 
         // Petición a la API de Pokemon
         PokemonApiService apiService = RetrofitClient.getClient().create(PokemonApiService.class);
@@ -110,27 +132,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     // Si ya se cargaron todos los detalles, actualizamos la variable isDataLoaded
                     if (pokemonDetailsList.size() == pokemons.size()) {
-
-
-
-                        // INVENTO, QUITAR CUANDO LA BASE DE DATOS ESTÉ IMPLEMENTADA
-
-                        // Verifica que haya suficientes Pokémon en pokemonDetailsList
-                        if (pokemonDetailsList.size() >= 3) {
-                            // Copiar los tres primeros Pokémon
-                            for (int i = 0; i < 3; i++) {
-                                myPokemonList.add(pokemonDetailsList.get(i));
-                            }
-                            Toast.makeText(MainActivity.this, "3 Pokémon añadidos a mi lista", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Si no hay suficientes Pokémon
-                            Toast.makeText(MainActivity.this, "No hay suficientes Pokémon para añadir", Toast.LENGTH_SHORT).show();
-                        }
-
-
-
-
-
                         isDataLoaded = true;
                         navigateToInitialFragment();
                     }

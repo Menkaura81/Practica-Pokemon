@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 
 import dam.aguadulce.aal.practicapokemon.databinding.FragmentPokedexBinding;
@@ -80,7 +84,13 @@ public class PokedexFragment extends Fragment {
 
                     if (selectedPokemon != null) {
                         // Añadir pokemon a la base de datos y a la lista
-
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("user").add(selectedPokemon)
+                                .addOnSuccessListener(runnable ->
+                                        Toast.makeText(getContext(), "Saved succesfully", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(runnable ->
+                                        Toast.makeText(getContext(), "Saved failed", Toast.LENGTH_SHORT).show()
+                        );
 
                         //Mostrar notificacion
                         TextView messageTextView = new TextView(requireContext());

@@ -48,6 +48,10 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.1.2")
     implementation("com.firebaseui:firebase-ui-auth:8.0.0")
 
+    // Firestore
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-firestore")
+
     // Retrofit para la APO
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
