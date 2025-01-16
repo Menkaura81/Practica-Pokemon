@@ -1,6 +1,7 @@
 package dam.aguadulce.aal.practicapokemon;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +10,10 @@ import java.util.List;
  * Clase que implementa el objeto Pokemon con los detalles necesarios para el recyclerview. También se usa para interacturar
  * con retrofit
  */
-public class PokemonDetails {
+public class PokemonDetails implements Serializable {
 
     private String name;
-    private int id;
+    private String id;
 
     @SerializedName("sprites")
     private Sprites sprites;
@@ -20,11 +21,11 @@ public class PokemonDetails {
     @SerializedName("types")
     private List<TypeWrapper> types;
 
-    private int weight;
-    private int height;
+    private String weight;
+    private String height;
 
     // Constructor personalizado para simplificar
-    public PokemonDetails(String name, int id, String sprite, String type, int weight, int height) {
+    public PokemonDetails(String name, String id, String sprite, String type, String weight, String height) {
         this.name = name;
         this.id = id;
         this.sprites = new Sprites(sprite);
@@ -38,7 +39,7 @@ public class PokemonDetails {
         return name;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -50,11 +51,11 @@ public class PokemonDetails {
         return types.get(0).getType().getName();
     }
 
-    public int getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public int getHeight() {
+    public String getHeight() {
         return height;
     }
 

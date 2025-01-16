@@ -45,7 +45,8 @@ dependencies {
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-analytics")
-    implementation("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation("com.google.firebase:firebase-auth:22.1.2")
+    implementation("com.firebaseui:firebase-ui-auth:8.0.0")
 
     // Retrofit para la APO
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

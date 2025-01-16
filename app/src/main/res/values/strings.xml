@@ -11,5 +11,15 @@
     <string name="pokedex_menu">Pokedex</string>
     <string name="settings_menu">Settings</string>
     <string name="settings_title">SETTINGS</string>
+    <string name="detail_name_placeholder">Name</string>
+    <string name="detail_index_placeholder">Index</string>
+    <string name="detail_type_placeholder">Type</string>
+    <string name="detail_height_placeholder">Height</string>
+    <string name="detail_weight_placeholder">Weight</string>
+    <string name="index_text">Index:</string>
+    <string name="type_text">Type:</string>
+    <string name="height_text">Height:</string>
+    <string name="weight_text">Weight:</string>
+    <string name="delete_text">Delete</string>
 
 </resources>

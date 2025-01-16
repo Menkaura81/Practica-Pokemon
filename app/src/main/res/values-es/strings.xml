@@ -11,4 +11,14 @@
     <string name="pokedex_menu">Pokedex</string>
     <string name="settings_menu">Ajustes</string>
     <string name="settings_title">AJUSTES</string>
+    <string name="detail_name_placeholder">Nombre</string>
+    <string name="detail_index_placeholder">Indice</string>
+    <string name="detail_type_placeholder">Tipo</string>
+    <string name="detail_height_placeholder">Altura</string>
+    <string name="detail_weight_placeholder">Peso</string>
+    <string name="index_text">Índice:</string>
+    <string name="type_text">Tipo:</string>
+    <string name="height_text">Altura:</string>
+    <string name="weight_text">Peso:</string>
+    <string name="delete_text">Borrar</string>
 </resources>

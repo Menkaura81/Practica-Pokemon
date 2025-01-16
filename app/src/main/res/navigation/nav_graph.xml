@@ -20,4 +20,9 @@
         android:name="dam.aguadulce.aal.practicapokemon.AjustesFragment"
         android:label="fragment_ajustes"
         tools:layout="@layout/fragment_ajustes" />
+    <fragment
+        android:id="@+id/pokemon_details"
+        android:name="dam.aguadulce.aal.practicapokemon.FragmentDetails"
+        android:label="fragment_pokemon_details"
+        tools:layout="@layout/fragment_pokemon_details" />
 </navigation>

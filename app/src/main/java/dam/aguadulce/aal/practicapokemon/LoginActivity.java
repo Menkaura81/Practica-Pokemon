@@ -3,7 +3,6 @@ package dam.aguadulce.aal.practicapokemon;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +25,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    private void startSingIn() {
+    private void startSignIn() {
+        FirebaseAuth.getInstance().setLanguageCode("es"); // Idioma de FirebaseAuth
+        //AuthUI.getInstance().setLanguageCode("es"); // Idioma de FirebaseUI
+
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build());
 
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                 .setLogo(R.drawable.pokeball)      // Set logo drawable
                 .setTheme(R.style.Theme_PracticaPokemon)      // Set theme
                 .build();
+
         signInLauncher.launch(signInIntent);
     }
 
@@ -78,7 +81,8 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null){
             goToMainActivity();
         } else {
-            startSingIn();
+
+            startSignIn();
         }
 
     }
@@ -90,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
     private void goToMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+        finish();
     }
 
 }

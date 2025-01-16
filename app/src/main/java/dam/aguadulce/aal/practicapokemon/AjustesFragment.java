@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +35,9 @@ public class AjustesFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentAjustesBinding.inflate(inflater, container, false);
 
+        // Inicializar el estado del Switch
+        binding.deletePokemons.setChecked(sharedPreferences.getBoolean(PreferencesHelper.KEY_DELETE_POKEMONS, false));
+
         binding.about.setOnClickListener(v -> onAboutSelected());
         binding.closeSession.setOnClickListener(v -> onCloseSessionSelected());
         binding.changeLanguage.setOnClickListener(v -> onChangeLanguageSelected());
@@ -40,8 +45,9 @@ public class AjustesFragment extends Fragment {
             // Guardar el estado del switch
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(PreferencesHelper.KEY_DELETE_POKEMONS, isChecked);  // Guardamos el estado del switch como booleano
-            editor.apply();  // Asegúrate de aplicar los cambios
-            //boolean deletePokemons = sharedPreferences.getBoolean(PreferencesHelper.KEY_DELETE_POKEMONS, false);
+            editor.apply();
+            boolean savedState = sharedPreferences.getBoolean(PreferencesHelper.KEY_DELETE_POKEMONS, false);
+            Log.d("DeletePokemonsSwitch", "Valor leído desde SharedPreferences: " + savedState);
         });
         return binding.getRoot();
     }

@@ -38,8 +38,6 @@ public class PokemonRecyclerViewAdapter extends Adapter<PokemonViewHolder> {
             Bundle result = new Bundle();
             result.putString("nombrePokemon", currentPokemon.getName());
 
-
-
             // Enviar el resultado al FragmentManager
             fragment.requireActivity()
                     .getSupportFragmentManager()

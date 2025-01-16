@@ -3,6 +3,7 @@ package dam.aguadulce.aal.practicapokemon;
 import static dam.aguadulce.aal.practicapokemon.PreferencesHelper.KEY_LANGUAGE;
 import static dam.aguadulce.aal.practicapokemon.PreferencesHelper.PREFS_NAME;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private List<PokemonDetails> pokemonDetailsList = new ArrayList<>();
     boolean isDataLoaded = false;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         String languageCode = sharedPreferences.getString(KEY_LANGUAGE, "es");  // Idioma por defecto
         // Cambiar el idioma si es necesario
         changeLanguage(languageCode);
+
+        Toast.makeText(MainActivity.this, "Cargando lista de Pokemons ", Toast.LENGTH_SHORT).show();
 
         // Petición a la API de Pokemon
         PokemonApiService apiService = RetrofitClient.getClient().create(PokemonApiService.class);
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             navController = NavHostFragment.findNavController(navHostFragment);
             NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
             //NavigationUI.setupActionBarWithNavController(this, navController);
+
         }
 
         // Listener para los clicks en el menu inferior
