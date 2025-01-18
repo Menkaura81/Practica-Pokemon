@@ -21,6 +21,7 @@ public class FragmentDetails extends Fragment {
 
     private FragmentPokemonDetailsBinding binding;
 
+
     /**
      * Constructor vacío requerido
      */
