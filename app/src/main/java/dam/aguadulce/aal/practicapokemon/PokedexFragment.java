@@ -93,23 +93,31 @@ public class PokedexFragment extends Fragment {
                     String nombrePokemon = result.getString("nombrePokemon");
 
                     // Buscamos el Pokémon en la lista para pasar todos los detalles
-                    PokemonDetails selectedPokemon = null;
-                    for (PokemonDetails pokemon : pokemonDetallesLista) {
-                        if (pokemon.getName().equals(nombrePokemon)) {
-                            selectedPokemon = pokemon;
-                            break;
-                        }
-                    }
+                    PokemonDetails selectedPokemon = pokemonDetallesLista.stream().filter(pokemon -> pokemon.getName().equals(nombrePokemon)).findFirst().orElse(null);
 
                     if (selectedPokemon != null) {
                         // Añadimos pokemon a la base de datos y a la lista
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        db.collection("user").add(selectedPokemon)
-                                .addOnSuccessListener(runnable ->
-                                        Toast.makeText(getContext(), nombrePokemon + " " + getString(R.string.pokemon_added_msg) , Toast.LENGTH_SHORT).show())
-                                .addOnFailureListener(runnable ->
-                                        Toast.makeText(getContext(), getString(R.string.pokemon_add_failed_msg), Toast.LENGTH_SHORT).show()
-                        );
+                        // Consultamos si ya existe un Pokémon con ese nombre en la base de datos
+                        db.collection("user")
+                                .whereEqualTo("name", selectedPokemon.getName())  // Filtramos por nombre del Pokémon
+                                .get()
+                                .addOnSuccessListener(queryDocumentSnapshots -> {
+                                    if (!queryDocumentSnapshots.isEmpty()) {
+                                        // Si el resultado no está vacío, significa que ya existe un Pokémon con ese nombre
+                                        Toast.makeText(getContext(), getString(R.string.pokemon_exists_msg), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // Si no existe, lo añadimos a la base de datos
+                                        db.collection("user").add(selectedPokemon)
+                                                .addOnSuccessListener(runnable ->
+                                                        Toast.makeText(getContext(), nombrePokemon + " " + getString(R.string.pokemon_added_msg), Toast.LENGTH_SHORT).show())
+                                                .addOnFailureListener(runnable ->
+                                                        Toast.makeText(getContext(), getString(R.string.pokemon_add_failed_msg), Toast.LENGTH_SHORT).show());
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(getContext(), "Error checking Pokémon", Toast.LENGTH_SHORT).show();
+                                });
                     }
                 }
             }

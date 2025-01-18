@@ -33,4 +33,5 @@
     <string name="delete_failed_msg">Delete failed</string>
     <string name="pokemon_added_msg"> added to your list</string>
     <string name="pokemon_add_failed_msg">Pokemon add to list failed</string>
+    <string name="pokemon_exists_msg">Pokemon already captured</string>
 </resources>

@@ -33,4 +33,5 @@
     <string name="delete_failed_msg">Borrado fallido</string>
     <string name="pokemon_added_msg"> añadido a tu lista</string>
     <string name="pokemon_add_failed_msg">Fallo al añadir Pokemon a tu lista</string>
+    <string name="pokemon_exists_msg">Ya tienes es Pokemon capturado</string>
 </resources>
