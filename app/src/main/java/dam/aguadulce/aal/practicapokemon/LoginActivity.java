@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Metodo onCreate
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle con el estado de la actividad
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Metodo que comprueba el resultado del login
-     * @param result
+     * @param result Resultado del login
      */
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();

@@ -40,7 +40,7 @@ public class MyPokemonsFragment extends Fragment {
     /**
      * Método estático para crear una instancia del fragmento con argumentos
      * @param listaPokemon Lista de pokemons que el usuario tiene capturados
-     * @return
+     * @return Instancia del fragmento
      */
     public static MyPokemonsFragment newInstance(ArrayList<PokemonDetails> listaPokemon) {
         MyPokemonsFragment fragment = new MyPokemonsFragment();
@@ -86,7 +86,7 @@ public class MyPokemonsFragment extends Fragment {
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      * from a previous saved state as given here.
      *
-     * @return
+     * @return La vista del fragmento
      */
     @Nullable
     @Override

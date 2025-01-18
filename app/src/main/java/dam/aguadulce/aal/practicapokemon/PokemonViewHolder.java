@@ -11,7 +11,7 @@ public class PokemonViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Constructor
-     * @param binding
+     * @param binding Instancia de la clase PokemonCardviewBinding
      */
     public PokemonViewHolder(PokemonCardviewBinding binding) {
         super(binding.getRoot());

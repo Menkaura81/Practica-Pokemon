@@ -27,12 +27,12 @@ public class PokemonDetails implements Serializable {
 
     /**
      * Constructor personalizado para simplificar
-     * @param name
-     * @param id
-     * @param sprite
-     * @param type
-     * @param weight
-     * @param height
+     * @param name Nombre del Pokemon
+     * @param id Id del Pokemon
+     * @param sprite Sprite del Pokemon
+     * @param type Tipo del Pokemon
+     * @param weight Peso del Pokemon
+     * @param height Altura del Pokemon
      */
     public PokemonDetails(String name, String id, String sprite, String type, String weight, String height) {
         this.name = name;
@@ -110,7 +110,7 @@ public class PokemonDetails implements Serializable {
 
         /**
          * Constructor
-         * @param frontDefault
+         * @param frontDefault Sprite del Pokemon
          */
         public Sprites(String frontDefault) {
             this.frontDefault = frontDefault;
@@ -137,7 +137,7 @@ public class PokemonDetails implements Serializable {
 
         /**
          * Constructor
-         * @param type
+         * @param type Tipo del Pokemon
          */
         public TypeWrapper(Type type) {
             this.type = type;
