@@ -33,3 +33,5 @@ El desarrollo de esta tarea ha sido complejo. No tanto por el uso de Retrofit o 
 El proyecto esta codificado en Java, quizá cuando termine el curso lo rehaga en Kotlin para mejorar en el desarrollo de aplicaciones Android, pero entre el trabajo y las 5 asignaturas de segundo que llevo adelante no me lo puedo permitir ahora mismo si quiero seguir el ritmo del curso.
 
 ## Capturas de pantalla 
+
+<image src="https://drive.google.com/file/d/1Oqrqr9sdR_hCQvN0wI4HoX5C-mbpLFRu/view?usp=drive_link" alt="Pokedex">
