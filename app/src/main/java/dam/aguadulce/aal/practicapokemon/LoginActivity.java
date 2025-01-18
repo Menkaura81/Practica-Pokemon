@@ -98,7 +98,6 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null){
             goToMainActivity();
         } else {
-
             startSignIn();
         }
 

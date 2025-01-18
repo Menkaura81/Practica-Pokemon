@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * Método que implementa la logica de navegación entre las pestañas del menu inferior
      * @param menuItem Item del menú que se ha pulsado
@@ -184,5 +185,16 @@ public class MainActivity extends AppCompatActivity {
             navController.navigate(R.id.ajustesFragment);
         }
         return true;
+    }
+
+
+    /**
+     * Agrega un Pokémon a la lista myPokemonList y notifica cambios si es necesario.
+     * @param pokemon Pokémon a añadir.
+     */
+    public void addPokemonToMyPokemonList(PokemonDetails pokemon) {
+        if (!myPokemonList.contains(pokemon)) {
+            myPokemonList.add(pokemon);
+        }
     }
 }

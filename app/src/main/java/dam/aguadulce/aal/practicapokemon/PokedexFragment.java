@@ -109,14 +109,20 @@ public class PokedexFragment extends Fragment {
                                     } else {
                                         // Si no existe, lo añadimos a la base de datos
                                         db.collection("user").add(selectedPokemon)
-                                                .addOnSuccessListener(runnable ->
-                                                        Toast.makeText(getContext(), nombrePokemon + " " + getString(R.string.pokemon_added_msg), Toast.LENGTH_SHORT).show())
+                                                .addOnSuccessListener(documentReference -> {
+                                            Toast.makeText(getContext(), nombrePokemon + " " + getString(R.string.pokemon_added_msg), Toast.LENGTH_SHORT).show();
+
+                                            // Agregamos el Pokémon a myPokemonList en MainActivity
+                                            MainActivity activity = (MainActivity) requireActivity();
+                                            activity.addPokemonToMyPokemonList(selectedPokemon);
+                                        })
                                                 .addOnFailureListener(runnable ->
                                                         Toast.makeText(getContext(), getString(R.string.pokemon_add_failed_msg), Toast.LENGTH_SHORT).show());
+
                                     }
                                 })
                                 .addOnFailureListener(e -> {
-                                    Toast.makeText(getContext(), "Error checking Pokémon", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), getString(R.string.no_pokemon_msg), Toast.LENGTH_SHORT).show();
                                 });
                     }
                 }
