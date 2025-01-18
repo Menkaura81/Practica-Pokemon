@@ -16,10 +16,12 @@
     <string name="detail_type_placeholder">Type</string>
     <string name="detail_height_placeholder">Height</string>
     <string name="detail_weight_placeholder">Weight</string>
-    <string name="index_text">Index:</string>
-    <string name="type_text">Type:</string>
-    <string name="height_text">Height:</string>
-    <string name="weight_text">Weight:</string>
+    <string name="index_text">Index: </string>
+    <string name="type_text">Type: </string>
+    <string name="height_text">Height: </string>
+    <string name="weight_text">Weight: </string>
     <string name="delete_text">Delete</string>
+    <string name="delete_msg"> deleted successfully</string>
+    <string name="close_session_msg">Session closed successfully</string>
 
 </resources>

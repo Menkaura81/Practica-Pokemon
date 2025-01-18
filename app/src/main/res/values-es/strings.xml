@@ -21,4 +21,6 @@
     <string name="height_text">Altura:</string>
     <string name="weight_text">Peso:</string>
     <string name="delete_text">Borrar</string>
+    <string name="delete_msg">eliminado correctamente</string>
+    <string name="close_session_msg">Sesión cerrada correctamente</string>
 </resources>

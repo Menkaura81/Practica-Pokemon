@@ -7,16 +7,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import dam.aguadulce.aal.practicapokemon.databinding.FragmentPokemonDetailsBinding;
 
-
+/**
+ * Clase que implementa el fragmento detalles
+ */
 public class FragmentDetails extends Fragment {
 
     private FragmentPokemonDetailsBinding binding;
@@ -70,18 +69,11 @@ public class FragmentDetails extends Fragment {
         // Configurar el botón de eliminación
         binding.deleteButton.setOnClickListener(v -> {
             if (pokemonDetails != null) {
-                Toast.makeText(requireContext(), pokemonDetails.getName() + " eliminado", Toast.LENGTH_SHORT).show();
-                Log.d("PokemonList", "antes del borrado" );
-                // Intentar encontrar el fragmento que contiene la lista de Pokémon y eliminarlo
-                Fragment fragment = getParentFragment();
-                if (fragment instanceof MyPokemonsFragment) {
-                    MyPokemonsFragment myPokemonsFragment = (MyPokemonsFragment) fragment;
-                    myPokemonsFragment.deletePokemon(pokemonDetails);
-                }
+                Bundle result = new Bundle();
+                result.putSerializable("pokemonDetails", pokemonDetails);
+                requireActivity().getSupportFragmentManager().setFragmentResult("deletePokemon", result);
 
-
-
-                // Volver al fragmento MyPokemonsFragment (atras)
+                // Toast.makeText(requireContext(), pokemonDetails.getName() + " eliminado", Toast.LENGTH_SHORT).show();
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
