@@ -2,14 +2,14 @@
 
 ## Introducción
 
-Esta aplicación ha sido desarrollada para cumplir con las especificaciones de la Tarea Online 3 de la asignatura Programación Multimedia y Dispositivos Móviles del grado superior en Desarrollo de Aplicaciones Multiplataforma. En ella se puede consultar la Pokedex que incluye los primeros 150 de Pokemon. Se pueden capturar los deseados y añadirlos a la lista personal del usuario. Dicha lista es persistente. Junto a esto, en Ajustes, el usuario puede configurar diversos aspectos de la aplicacióm
+Esta aplicación ha sido desarrollada para cumplir con las especificaciones de la Tarea Online 3 de la asignatura Programación Multimedia y Dispositivos Móviles del grado superior en Desarrollo de Aplicaciones Multiplataforma. En ella se puede consultar la Pokedex que incluye los primeros 150 de Pokemon. Se pueden capturar los deseados y añadirlos a la lista personal del usuario. Dicha lista es persistente. Junto a esto, en Ajustes, el usuario puede configurar diversos aspectos de la aplicación
 
 
 ## Tecnologías utilizadas
 
 En la aplicación se hacen uso de las siguientes tecnologias:
 
-- API http Pokeapi. Gracias a esta API se puede recuperar la lista de los 150 pokemon y sus caracteristicas.
+- API http Pokeapi. Gracias a esta API se puede recuperar la lista de los 150 pokemon y sus características.
 
 - Retrofit. Mediante el uso de esta libreria interactuamos con la API web de Pokemon.
 
@@ -28,6 +28,6 @@ Para clonar el repositorio, pinchar en "File/New/Project from Version Control" y
 
 ## Conclusiones del desarrollador
 
-El desarrollo de esta tarea ha sido complejo. No tanto por el uso de Retrofit o Firebase, que estan muy bien documentados, si no por la comunicacion entre los distintos fragmentos para actualizar las listas de Pokemon, es lo que mas trabajo me ha costado implementar. Lo cierto es que Firebase es tremendamente sencillo de implementar y añade muchísimas funcionalidades a nuestra aplicación. 
+El desarrollo de esta tarea ha sido complejo. No tanto por el uso de Retrofit o Firebase, que estan muy bien documentados, si no por la comunicación entre los distintos fragmentos para actualizar las listas de Pokemon, es lo que mas trabajo me ha costado implementar. Lo cierto es que Firebase es tremendamente sencillo de implementar y añade muchísimas funcionalidades a nuestra aplicación. 
 
 El proyecto esta codificado en Java, quizá cuando termine el curso lo rehaga en Kotlin para mejorar en el desarrollo de aplicaciones Android, pero entre el trabajo y las 5 asignaturas de segundo que llevo adelante no me lo puedo permitir ahora mismo si quiero seguir el ritmo del curso.
