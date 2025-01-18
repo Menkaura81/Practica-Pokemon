@@ -1,6 +1,5 @@
 package dam.aguadulce.aal.practicapokemon;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,21 +8,21 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import dam.aguadulce.aal.practicapokemon.databinding.FragmentMisPokemonsBinding;
 
 
+/**
+ * Clase que implementa el fragmento de mis pokemons
+ */
 public class MyPokemonsFragment extends Fragment {
 
     private FragmentMisPokemonsBinding binding;
@@ -52,18 +51,22 @@ public class MyPokemonsFragment extends Fragment {
     }
 
 
+    /**
+     * Método onCreate que añade el listener para el borrado de pokemons desde los detalles y recupera la lista de pokemons
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Listner para el borrado de pokemos desde los detalles
+        // Listener para el borrado de pokemos desde los detalles
         requireActivity().getSupportFragmentManager().setFragmentResultListener("deletePokemon", this, (requestKey, result) -> {
             PokemonDetails pokemonDetails = (PokemonDetails) result.getSerializable("pokemonDetails");
             if (pokemonDetails != null) {
                 deletePokemon(pokemonDetails);
             }
         });
-
 
         // Recuperamos la lista de Pokémon desde los argumentos
         if (getArguments() != null) {
@@ -73,13 +76,25 @@ public class MyPokemonsFragment extends Fragment {
     }
 
 
+    /**
+     * Método onCreateView que infla el layout del fragmento y configura el RecyclerView
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMisPokemonsBinding.inflate(inflater, container, false);
 
         if (pokemonDetallesLista != null) {
-            // Configurar el adaptador
+            // Configuramos el adaptador del recyclerView
             adapter = new PokemonRecyclerViewAdapter(pokemonDetallesLista, this);
             binding.misPokemonsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
             binding.misPokemonsRecyclerView.setAdapter(adapter);
@@ -103,7 +118,7 @@ public class MyPokemonsFragment extends Fragment {
                     }
 
                     if (selectedPokemon != null) {
-                        // Navegar al fragmento de detalles pasando los datos
+                        // Navegamos al fragmento de detalles pasando los datos
                         NavController navController = NavHostFragment.findNavController(MyPokemonsFragment.this);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("pokemonDetalles", (Serializable) selectedPokemon);
@@ -130,9 +145,9 @@ public class MyPokemonsFragment extends Fragment {
                     .get()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
                         if (!queryDocumentSnapshots.isEmpty()) {
-                            // Recorrer los documentos encontrados
+                            // Recorremos los documentos encontrados
                             for (DocumentSnapshot document : queryDocumentSnapshots) {
-                                // Eliminar el documento usando su ID de Firestore
+                                // Eliminamos el documento usando su ID de Firestore
                                 db.collection("user")
                                         .document(document.getId())
                                         .delete()
@@ -140,16 +155,16 @@ public class MyPokemonsFragment extends Fragment {
                                                 Toast.makeText(getContext(), pokemonDetails.getName()+ " " + getString(R.string.delete_msg), Toast.LENGTH_SHORT).show()
                                         )
                                         .addOnFailureListener(e ->
-                                                Toast.makeText(getContext(), "Delete failed: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(getContext(), getString(R.string.delete_failed_msg), Toast.LENGTH_SHORT).show()
                                         );
                             }
                         } else {
                             // Si no se encontró el Pokémon
-                            Toast.makeText(getContext(), "No Pokémon found with the specified ID", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.no_pokemon_found_delete_msg), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(e ->
-                            Toast.makeText(getContext(), "Error fetching Pokémon: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(getContext(), getString(R.string.pokemon_get_error), Toast.LENGTH_SHORT).show()
                     );
             // Luego lo borramos de la lista local
             pokemonDetallesLista.remove(pokemonDetails);

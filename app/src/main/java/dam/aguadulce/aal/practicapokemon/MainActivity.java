@@ -2,7 +2,6 @@ package dam.aguadulce.aal.practicapokemon;
 
 import static dam.aguadulce.aal.practicapokemon.PreferencesHelper.KEY_LANGUAGE;
 import static dam.aguadulce.aal.practicapokemon.PreferencesHelper.PREFS_NAME;
-
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -14,20 +13,20 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import dam.aguadulce.aal.practicapokemon.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
+/**
+ * Clase que implementa la actividad principal
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -36,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
     private List<PokemonDetails> myPokemonList = new ArrayList<>();
     boolean isDataLoaded = false;
 
+
+    /**
+     * Método onCreate que carga el binding y el navController. Además carga la lista de pokemons de la base
+     * de datos y la pokedex desde la API de Pokemon
+     * @param savedInstanceState
+     */
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +52,11 @@ public class MainActivity extends AppCompatActivity {
         // SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String languageCode = sharedPreferences.getString(KEY_LANGUAGE, "es");  // Idioma por defecto
-        // Cambiar el idioma si es necesario
+        // Cambiamos el idioma si es necesario
         changeLanguage(languageCode);
 
-        Toast.makeText(MainActivity.this, "Cargando lista de Pokemons ", Toast.LENGTH_SHORT).show();
+        // Informamos al usuario de que se esta cargando la lista para hacer tiempo a que cargue
+        Toast.makeText(MainActivity.this, getString(R.string.loading_pokemon_msg), Toast.LENGTH_SHORT).show();
 
         // Peticion a Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -63,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
                             myPokemonList.add(pokemon);
                         }
                     } else {
-                        System.out.println("No hay Pokémon en la base de datos.");
+                        Toast.makeText(MainActivity.this, getString(R.string.no_pokemon_msg), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> {
-                    System.out.println("Error al obtener Pokémon: " + e.getMessage());
+                    Toast.makeText(MainActivity.this, getString(R.string.pokemon_get_error), Toast.LENGTH_SHORT).show();
                 });
 
         // Petición a la API de Pokemon
@@ -80,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
                     List<Pokemon> pokemons = response.body().getResults();
                     fetchPokemonDetails(apiService, pokemons);
                 } else {
-                    Toast.makeText(MainActivity.this, "Respuesta fallida", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.api_call_failed), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<PokemonResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error en la petición", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.api_call_failed), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -96,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             navController = NavHostFragment.findNavController(navHostFragment);
             NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
             //NavigationUI.setupActionBarWithNavController(this, navController);
-
         }
 
         // Listener para los clicks en el menu inferior
@@ -106,6 +111,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Método que cambia el idioma de la aplicación
+     * @param languageCode
+     */
     private void changeLanguage(String languageCode) {
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
@@ -139,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<PokemonDetails> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, "Fallo al obtener detalles: ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.detail_call_failed), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -151,10 +160,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void navigateToInitialFragment() {
         if (isDataLoaded) {
-            // Aquí puedes navegar a tu fragmento inicial
             Bundle bundle = new Bundle();
             bundle.putSerializable("pokemonDetallesLista", new ArrayList<>(myPokemonList));
-            navController.navigate(R.id.misPokemonsFragment, bundle);  // O cualquier fragmento inicial
+            navController.navigate(R.id.misPokemonsFragment, bundle);
         }
     }
 

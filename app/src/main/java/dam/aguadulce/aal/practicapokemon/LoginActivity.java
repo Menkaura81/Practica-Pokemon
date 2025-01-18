@@ -17,17 +17,27 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 
+/**
+ * Clase que implementa el login
+ */
 public class LoginActivity extends AppCompatActivity {
 
 
+    /**
+     * Metodo onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
     }
 
+
+    /**
+     * Metodo que inicia el login
+     */
     private void startSignIn() {
         FirebaseAuth.getInstance().setLanguageCode("es"); // Idioma de FirebaseAuth
-        //AuthUI.getInstance().setLanguageCode("es"); // Idioma de FirebaseUI
 
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build());
@@ -42,7 +52,10 @@ public class LoginActivity extends AppCompatActivity {
         signInLauncher.launch(signInIntent);
     }
 
-    // See: https://developer.android.com/training/basics/intents/result
+
+    /**
+     * Metodo auxiliar para el login
+     */
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
             new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
@@ -54,6 +67,10 @@ public class LoginActivity extends AppCompatActivity {
     );
 
 
+    /**
+     * Metodo que comprueba el resultado del login
+     * @param result
+     */
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
@@ -62,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             // Lanzamos la mainActivity
             goToMainActivity();
         } else {
-            Toast.makeText(this, "Error Login", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.login_error_msg), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -96,5 +113,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-
 }

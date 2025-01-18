@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.squareup.picasso.Picasso;
 import dam.aguadulce.aal.practicapokemon.databinding.FragmentPokemonDetailsBinding;
 
+
 /**
  * Clase que implementa el fragmento detalles
  */
@@ -20,20 +21,39 @@ public class FragmentDetails extends Fragment {
 
     private FragmentPokemonDetailsBinding binding;
 
+    /**
+     * Constructor vacío requerido
+     */
     public FragmentDetails() {
-        // Required empty public constructor
     }
 
 
+    /**
+     * Método onCreateView que infla el layout con el binding
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inicializar binding
         binding = FragmentPokemonDetailsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
 
+    /**
+     * Método onViewCreated que actualiza la interfaz con los datos del pokemon
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -41,7 +61,7 @@ public class FragmentDetails extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        // Obtener los datos pasados en el Bundle
+        // Datos pasados en el Bundle
         Bundle args = getArguments();
         if (args != null) {
             pokemonDetails = (PokemonDetails) args.getSerializable("pokemonDetalles");
@@ -55,33 +75,38 @@ public class FragmentDetails extends Fragment {
             pokemonDetails = null;
         }
 
-        // Obtener la preferencia de SharedPreferences
+        // Obtenemos la preferencia de SharedPreferences
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFS_NAME, getContext().MODE_PRIVATE);
         boolean canDelete = sharedPreferences.getBoolean(KEY_DELETE_POKEMONS, false);
 
-        // Mostrar u ocultar el botón de eliminación basado en el valor de la preferencia
+        // Mostramos u ocultamos el botón de eliminación basado en el valor de la preferencia
         if (canDelete) {
             binding.deleteButton.setVisibility(View.VISIBLE); // Mostrar el botón
         } else {
             binding.deleteButton.setVisibility(View.GONE); // Ocultar el botón
         }
 
-        // Configurar el botón de eliminación
+        // Botón de eliminación
         binding.deleteButton.setOnClickListener(v -> {
+            // Creamos el bundle con los datos del pokemon
             if (pokemonDetails != null) {
                 Bundle result = new Bundle();
                 result.putSerializable("pokemonDetails", pokemonDetails);
                 requireActivity().getSupportFragmentManager().setFragmentResult("deletePokemon", result);
 
-                // Toast.makeText(requireContext(), pokemonDetails.getName() + " eliminado", Toast.LENGTH_SHORT).show();
+                // Volvemos al fragmento anterior (mypokemons)
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
     }
 
 
+    /**
+     * Método que actualiza la interfaz con los datos del pokemon
+     * @param pokemonDetails
+     */
     private void updateUI(PokemonDetails pokemonDetails) {
-        // Usar Picasso para cargar la imagen del Pokémon
+        // Usamos Picasso para cargar la imagen del Pokémon
         Picasso.get()
                 .load(pokemonDetails.getSprite()) // URL de la imagen
                 .placeholder(R.drawable.placeholder) // Imagen de carga

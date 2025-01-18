@@ -23,4 +23,14 @@
     <string name="delete_text">Borrar</string>
     <string name="delete_msg">eliminado correctamente</string>
     <string name="close_session_msg">Sesión cerrada correctamente</string>
+    <string name="login_error_msg">Error de login</string>
+    <string name="loading_pokemon_msg">Cargando lista de pokemon</string>
+    <string name="no_pokemon_msg">No se encuentan pokemon en la base de datos</string>
+    <string name="pokemon_get_error">Error cargando pokemon de la base de datos</string>
+    <string name="api_call_failed">Respuesta fallida de la API</string>
+    <string name="detail_call_failed">Fallo al obtener detalles de Pokemon</string>
+    <string name="no_pokemon_found_delete_msg">No se ha encontrado ningún Pokemon con la ID especificada</string>
+    <string name="delete_failed_msg">Borrado fallido</string>
+    <string name="pokemon_added_msg"> añadido a tu lista</string>
+    <string name="pokemon_add_failed_msg">Fallo al añadir Pokemon a tu lista</string>
 </resources>

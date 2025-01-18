@@ -23,5 +23,14 @@
     <string name="delete_text">Delete</string>
     <string name="delete_msg"> deleted successfully</string>
     <string name="close_session_msg">Session closed successfully</string>
-
+    <string name="login_error_msg">Login error</string>
+    <string name="loading_pokemon_msg">Loading pokemon list</string>
+    <string name="no_pokemon_msg">No Pokemon found in database</string>
+    <string name="pokemon_get_error">Get Pokemon from database failed</string>
+    <string name="api_call_failed">API response failed</string>
+    <string name="detail_call_failed">Pokemon details get failed</string>
+    <string name="no_pokemon_found_delete_msg">No Pokemon found with the specified ID</string>
+    <string name="delete_failed_msg">Delete failed</string>
+    <string name="pokemon_added_msg"> added to your list</string>
+    <string name="pokemon_add_failed_msg">Pokemon add to list failed</string>
 </resources>
