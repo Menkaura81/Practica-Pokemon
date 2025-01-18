@@ -31,7 +31,3 @@ Para clonar el repositorio, pinchar en "File/New/Project from Version Control" y
 El desarrollo de esta tarea ha sido complejo. No tanto por el uso de Retrofit o Firebase, que estan muy bien documentados, si no por la comunicacion entre los distintos fragmentos para actualizar las listas de Pokemon, es lo que mas trabajo me ha costado implementar. Lo cierto es que Firebase es tremendamente sencillo de implementar y añade muchísimas funcionalidades a nuestra aplicación. 
 
 El proyecto esta codificado en Java, quizá cuando termine el curso lo rehaga en Kotlin para mejorar en el desarrollo de aplicaciones Android, pero entre el trabajo y las 5 asignaturas de segundo que llevo adelante no me lo puedo permitir ahora mismo si quiero seguir el ritmo del curso.
-
-## Capturas de pantalla 
-
-<image src="https://drive.google.com/file/d/1Oqrqr9sdR_hCQvN0wI4HoX5C-mbpLFRu/view?usp=drive_link" alt="Pokedex">
