@@ -99,7 +99,7 @@ public class MyPokemonsFragment extends Fragment {
             binding.misPokemonsRecyclerView.setAdapter(adapter);
         }
 
-        // Configuramos el receptor del resultado
+        // Configuramos el receptor del click en la tarjeta
         requireActivity().getSupportFragmentManager().setFragmentResultListener("cardClick", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
@@ -150,9 +150,13 @@ public class MyPokemonsFragment extends Fragment {
                                 db.collection("user")
                                         .document(document.getId())
                                         .delete()
-                                        .addOnSuccessListener(unused ->
-                                                Toast.makeText(getContext(), pokemonDetails.getName()+ " " + getString(R.string.delete_msg), Toast.LENGTH_SHORT).show()
-                                        )
+                                        .addOnSuccessListener(unused ->{
+                                            Toast.makeText(getContext(), pokemonDetails.getName() + " " + getString(R.string.delete_msg), Toast.LENGTH_SHORT).show();
+                                            // Notificamos al MainActivity que se ha borrado un Pokémon
+                                            Bundle result = new Bundle();
+                                            result.putSerializable("deletedPokemon", pokemonDetails);
+                                            requireActivity().getSupportFragmentManager().setFragmentResult("pokemonDeleted", result);
+                                        })
                                         .addOnFailureListener(e ->
                                                 Toast.makeText(getContext(), getString(R.string.delete_failed_msg), Toast.LENGTH_SHORT).show()
                                         );

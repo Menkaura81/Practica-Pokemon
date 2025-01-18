@@ -8,8 +8,10 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -93,6 +95,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PokemonResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, getString(R.string.api_call_failed), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Este listener se añade para que la lista se actualice cuando se borre un pokemon en el fragmento de mis pokemons
+        getSupportFragmentManager().setFragmentResultListener("pokemonDeleted", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                if ("pokemonDeleted".equals(requestKey)) {
+                    PokemonDetails deletedPokemon = (PokemonDetails) result.getSerializable("deletedPokemon");
+                    if (deletedPokemon != null) {
+                        myPokemonList.remove(deletedPokemon);
+                    }
+                }
             }
         });
 
